@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="Js/module.js"></script>
+    <title>Home Page</title>
+</head>
+<body>
+
+    <div ng-app="employeeApp" ng-controller="EmployeeController">
+        <h2>Employee Management</h2>
+
+        <!-- Add Employee Form -->
+
+            <form ng-submit="addEmployee()">
+                <label>Name:</label>
+                <input type="text" ng-model="newEmployee.name" required /> <br><br>
+                <label>Designation:</label>
+                <input type="text" ng-model="newEmployee.designation" required /> <br><br>
+                <label>Salary:</label>
+                <input type="number" ng-model="newEmployee.salary" required /> <br><br>
+                <button type="submit">Add Employee</button>
+            </form>
+
+
+
+        <!-- Edit Employee Form -->
+        <div ng-if="editingEmployee">
+            <form ng-submit="updateEmployee()">
+                <label>Name:</label>
+                <input type="text" ng-model="editingEmployee.name" required/><br><br>
+                <label>Designation:</label>
+                <input type="text" ng-model="editingEmployee.designation" required /> <br><br>
+                <label>Salary:</label>
+                <input type="number" ng-model="editingEmployee.salary" required /><br><br>
+                <button type="submit">Update Employee</button>
+                <button type="button" ng-click="editingEmployee = null">Cancel</button>
+            </form><br>
+
+        </div>
+
+        <br><br>
+
+        <!-- Employee List -->
+        <table border="1">
+
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td style="text-align: center">Designation</td>
+                    <td>Salary</td>
+                    <td colspan="2">Update/Delete</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employee in employees">
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.designation }}</td>
+                    <td>{{ employee.salary }}</td>
+                    <td>
+                        <button ng-click="editEmployee(employee)">Edit</button>
+                        <button ng-click="deleteEmployee(employee.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <br>
+        <h2>Search Employee : </h2>
+        <form>
+            <div>
+                <label>Enter Employee No : </label>
+                <input type="number" ng-model="employeeNo" />
+            </div>
+            <button ng-click = "doSearch()">Search</button><br>
+
+            <div>
+                <h3>ID : {{employee.id}}</h3>
+                <h3>Name : {{employeeName}}</h3>
+                <h3>Designation : {{employee.designation}}</h3>
+                <h3>Salary : {{employee.salary | currency:"$"}}</h3>
+                <h3>Date : {{date | date:'mediumDate'}}</h3>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>
