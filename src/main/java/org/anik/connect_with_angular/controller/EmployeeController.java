@@ -16,6 +16,11 @@ public class EmployeeController {
     @Autowired
     private EmployeeService service;
 
+    @GetMapping("/home")
+    public String index(){
+        return "index";
+    }
+
     @GetMapping
     public List<Employee> getAllEmployees(){
         return service.getAllEmployees();
